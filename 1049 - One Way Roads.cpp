@@ -1,4 +1,3 @@
-/*Never Give up*/
 //http://lightoj.com/volume_showproblem.php?problem=1049
 #include<bits/stdc++.h>
 using namespace std;
@@ -7,17 +6,14 @@ using namespace std;
 #define ll           long long
 #define ull        unsigned long long
 #define pb        push_back
-#define v           vector
 #define l            list
 #define pi          pair
 #define mp         map
 #define nl         printf("\n")
-#define en        pf("Entered\n")
 //accepted
 int n;
 bool LEFT[101];
 bool RIGHT[101];
-
 int main()
 {
     int t;
@@ -46,12 +42,9 @@ int main()
                 RIGHT[b]=true;
                 r+=c;
             }
-
         }
         pf("Case %d: %d\n",ck,min(l,r));
         ck++;
     }
-
     return 0;
 }
-

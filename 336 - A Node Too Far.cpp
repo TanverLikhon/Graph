@@ -51,9 +51,7 @@ int bfs(int startingNode,int ttl)
             }
         }
     }
-   /*   m<int,int>::iterator it;
-    for(it=dis.begin();it!=dis.end();it++)
-          cout<<it->first<<"    "<<it->second<<endl;*/
+
     return ck;
 }
 int main()
@@ -77,11 +75,8 @@ int main()
                 break;
             int m=  bfs(x,y);
             dis.clear();
-            //    cout<<node.size()<<endl;
-          //  cout<<"M   "<<m<<"Total "<<node.size()<<"Visit "<<visitednodes<<endl;
             m=m+(total-visitednodes);
             pf("Case %d: %d nodes not reachable from node %d with TTL = %d.\n",ck,m,x,y);
-            // cout<<"M  "<<m<<endl;
             ck++;
             visitednodes=1;
         }
