@@ -1,6 +1,4 @@
 /*Never Give up*/
-///uva 11463
-///http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=2458
 ///http://lightoj.com/volume_showproblem.php?problem=1174
 #include<bits/stdc++.h>
 using namespace std;

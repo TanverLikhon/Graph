@@ -34,8 +34,7 @@ void dfs(int s)
 
 void initialize()
 {
-    for(int i=1; i<=nodes; i++)
-        visited[i]=false;
+for(int i=1;i<=nodes;i++)visited[i]=false;
 }
 
 int main()
@@ -44,28 +43,27 @@ int main()
     sf(t);
     while(t--)
     {
-        sf(nodes);
-        edges=nodes-1;
-        for(int i = 0; i < edges; ++i)
+           sf(nodes);
+   edges=nodes-1;
+    for(int i = 0; i < edges; ++i)
+    {
+      sff(x,y);
+        adj[x].push_back(y);
+    }
+
+    initialize();
+
+    for(int i = 1; i <= nodes; ++i)
+    {
+        if(visited[i] == false)
         {
-            sff(x,y);
-            adj[x].push_back(y);
+            dfs(i);
+
         }
-
-        initialize();
-
-        for(int i = 1; i <= nodes; ++i)
-        {
-            if(visited[i] == false)
-            {
-                dfs(i);
-
-            }
-        }
-        cout<<ck<<endl;
-        for(int i=1; i<=nodes; i++)
-            adj[i].clear();
-        ck=0;
+    }
+    cout<<ck<<endl;
+    for(int i=1;i<=nodes;i++)adj[i].clear();
+    ck=0;
     }
 
     return 0;
