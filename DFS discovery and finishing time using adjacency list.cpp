@@ -18,10 +18,15 @@ using namespace std;
 using namespace std;
 vector <int> adj[MAX];
 bool visited[MAX];
+int fTime[MAX];
+int dTime[MAX];
 int nodes, edges, x, y, ck = 0;
+int Time=1;
 void dfs(int s)
 {
     visited[s] = true;
+    dTime[s]=Time;
+    ++Time;
     for(int i = 0; i < adj[s].size(); ++i)
     {
         if(visited[adj[s][i]] == false)
@@ -30,43 +35,33 @@ void dfs(int s)
             ck++;
         }
     }
+    fTime[s]=Time;
+    ++Time;
 }
-
 void initialize()
 {
-    for(int i=1; i<=nodes; i++)
+    for(int i=0; i<nodes; i++)
         visited[i]=false;
 }
-
 int main()
 {
-    int t;
-    sf(t);
-    while(t--)
-    {
-        sf(nodes);
-        edges=nodes-1;
+        sff(nodes,edges);
+
         for(int i = 0; i < edges; ++i)
         {
             sff(x,y);
             adj[x].push_back(y);
         }
-
         initialize();
-
-        for(int i = 1; i <= nodes; ++i)
+        for(int i = 0; i <nodes; ++i)
         {
             if(visited[i] == false)
             {
                 dfs(i);
-
             }
         }
-        cout<<ck<<endl;
-        for(int i=1; i<=nodes; i++)
-            adj[i].clear();
-        ck=0;
-    }
-
+       cout<<"Printing discovering and finishing time "<<endl;
+       for(int i=0;i<nodes;i++)
+        cout<<"Node  "<<i<<" :: "<<dTime[i]<<" -> "<<fTime[i]<<endl;
     return 0;
 }

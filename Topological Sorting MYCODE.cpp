@@ -1,4 +1,5 @@
 /*Never Give up*/
+
 #include<bits/stdc++.h>
 using namespace std;
 #define sf(a)          scanf("%d",&a)
@@ -18,7 +19,11 @@ using namespace std;
 using namespace std;
 vector <int> adj[MAX];
 bool visited[MAX];
-int nodes, edges, x, y, ck = 0;
+int fTime[MAX];
+int dTime[MAX];
+int nodes, edges;
+int Time=1;
+stack<int >st;
 void dfs(int s)
 {
     visited[s] = true;
@@ -27,46 +32,42 @@ void dfs(int s)
         if(visited[adj[s][i]] == false)
         {
             dfs(adj[s][i]);
-            ck++;
         }
     }
+st.push(s);
 }
-
 void initialize()
 {
-    for(int i=1; i<=nodes; i++)
+    for(int i=0; i<nodes; i++)
         visited[i]=false;
 }
-
 int main()
 {
-    int t;
-    sf(t);
-    while(t--)
-    {
-        sf(nodes);
-        edges=nodes-1;
+        sff(nodes,edges);
+
         for(int i = 0; i < edges; ++i)
         {
+            int x,y;
             sff(x,y);
             adj[x].push_back(y);
         }
-
         initialize();
-
-        for(int i = 1; i <= nodes; ++i)
+        for(int i = 1; i <=nodes; ++i)
         {
             if(visited[i] == false)
             {
                 dfs(i);
-
             }
         }
-        cout<<ck<<endl;
-        for(int i=1; i<=nodes; i++)
-            adj[i].clear();
-        ck=0;
-    }
-
+       cout<<"Printing discovering and finishing time "<<endl;
+       for(int i=0;i<=nodes;i++)
+        cout<<"Node  "<<i<<" :: "<<dTime[i]<<" -> "<<fTime[i]<<endl;
+        cout<<"Topological sort :  ";
+        while(!st.empty())
+        {
+            int x=st.top();
+            cout<<x<<endl;
+            st.pop();
+        }
     return 0;
 }
