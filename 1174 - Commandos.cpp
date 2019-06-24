@@ -49,7 +49,7 @@ void bfs(int src)
             {
                 visited[tmp]=true;
                 if(flag==false)
-                dis[tmp]=dis[x]+1;
+                    dis[tmp]=dis[x]+1;
                 else
                     dis1[tmp]=dis1[x]+1;
                 q.push(tmp);
@@ -93,8 +93,8 @@ int main()
         for(int i=0; i<n; i++)
         {
             adj[i].clear();
-      dis[i]=0;
-          dis1[i]=0;
+            dis[i]=0;
+            dis1[i]=0;
         }
         flag=false;
     }
