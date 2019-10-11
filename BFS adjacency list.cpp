@@ -47,6 +47,7 @@ int main()
         cin>>x;
         cin>>y;
         adjList[x].push_back(y);
+        adjList[y].push_back(x);
     }
 
     for(int i=1;i<=n;i++)

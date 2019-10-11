@@ -1,9 +1,9 @@
 /*Never Give up*/
 /*
-Problem  :https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=1390
+Problem  :https://www.spoj.com/problems/SUBMERGE/
 Verdict     :AC
-Time         :
-Memory  :
+Time         :0.02sec
+Memory  :5.6M
 */
 #include<bits/stdc++.h>
 using namespace std;
@@ -36,10 +36,10 @@ using namespace std;
 #define en        pf("Entered\n")
 #define en1      pf("Entered 2\n")
 #define gcd(a,b) __gcd(a,b)
+#define PI            acos(-1.0)
 
 // priority_queue<int, vector<int>, greater<int> > Q;//for smaller values
 
-#define MAX    1000
 
 //int dx[] = {-1, 0, 1, 0};
 //int dy[] = {0, 1, 0, -1};
@@ -49,83 +49,75 @@ using namespace std;
 //int dy[]={2,-2,1,-1,2,-2,1,-1};/*knight move*/
 
 //'A'=65,'Z'=90 'a'=97 'z'=122 '0'=48
-//vi adj[MAX];
-int node,edge;
-ll dis[MAX];
-
-
-void BellmanFord(int graph[][3],int src)
+//MAXN = maximum points in the graph
+#define MAXX 10005
+vi adj[MAXX];
+bool vis[MAXX],AP[MAXX];
+int parent[MAXX],low[MAXX],disc[MAXX];
+int tim;
+int nodes,edges;
+void initilize(int n)
 {
-
-    for (int i = 1; i <= node; i++)
-        dis[i] = INT_MAX;
-    dis[src] = 0;
-    for (int i = 1; i <= node - 1; i++)
+    int i;
+    for(i =1; i<=n; i++)
     {
-        for (int j = 0; j < edge; j++)
+        vis[i]=AP[i]=false;
+        parent[i]=-1;
+        adj[i].clear();
+        low[i]=0;
+
+    }
+    tim=0;
+}
+
+void dfs(int u)
+{
+    vis[u]=true;
+    int  i;
+    low[u]=disc[u]=(++tim);
+    int child=0;
+    for(i=0; i<adj[u].size(); i++)
+    {
+        int v=adj[u][i];
+        if(vis[v]==false)
         {
-            if (dis[graph[j][0]]!=INT_MAX&&dis[graph[j][0]] + graph[j][2] <dis[graph[j][1]])
-                dis[graph[j][1]] =dis[graph[j][0]] + graph[j][2];
+            child++;
+            parent[v]=u;
+            dfs(v);
+
+            low[u]=min(low[u],low[v]);
+            if( (parent[u]!=-1) and ( low[v]>=disc[u] ) )
+                AP[u]=true;
+            if( (parent[u]==-1) and (child>1))
+                AP[u]=true;
+        }
+        else if(v!=parent[u])
+        {
+            low[u]=min(low[u],disc[v]);
         }
     }
-
-    for (int i = 0; i < edge; i++)
-    {
-        int x = graph[i][0];
-        int y = graph[i][1];
-        int weight = graph[i][2];
-        if (dis[x]!=INT_MAX&&dis[x] + weight < dis[y])
-           dis[y]=INT_MIN;
-    }
-
 }
 int main()
 {
-    int kk=1;
     int n,e;
-    while(sf(n)==1)
+    while(  sff(n,e)&&n&&e)
     {
-        node=n;
-        int dist[n+1];
-        for(int i=1; i<=n; i++)
-            sf(dist[i]);
-
-        sf(e);
-        edge=e;
-        int graph[e][3];
+        initilize(n);
         for(int i=0; i<e; i++)
         {
-
-            int u,v;
-            sff(u,v);
-            graph[i][0]=u;
-            graph[i][1]=v;
-            graph[i][2]=(dist[v]-dist[u])*(dist[v]-dist[u])*(dist[v]-dist[u]);
+            int x,y;
+            sff(x,y);
+            adj[x].pb(y);
+            adj[y].pb(x);
 
         }
-        BellmanFord(graph,1);
-
-     //   for(int i=1;i<=n;i++)
-     //  cout<<i<<" --  "<<dis[i]<<endl;
-
-        pf("Set #%d\n",kk++);
-        int q;
-        sf(q);
-        while(q--)
-        {
-            int x;
-            sf(x);
-          if(dis[x]<3||dis[x]==INT_MAX)pf("?\n");
-
-           else pf("%lld\n",dis[x]);
-        }
-
+        dfs(1);
+        int res=0;
+        for(int i=1;i<=n;i++)
+        if(AP[i])res++;
+        pf1(res);
     }
-
 
     return 0;
 }
-/*
-Ref:
-*/
 

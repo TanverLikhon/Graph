@@ -1,8 +1,8 @@
 /*Never Give up*/
 /*
-Problem  :https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=1390
+Problem  :https://codeforces.com/contest/977/problem/E
 Verdict     :AC
-Time         :
+Time         :186 ms	16000 KB
 Memory  :
 */
 #include<bits/stdc++.h>
@@ -36,10 +36,11 @@ using namespace std;
 #define en        pf("Entered\n")
 #define en1      pf("Entered 2\n")
 #define gcd(a,b) __gcd(a,b)
+#define PI            acos(-1.0)
 
 // priority_queue<int, vector<int>, greater<int> > Q;//for smaller values
 
-#define MAX    1000
+#define MAX    200005
 
 //int dx[] = {-1, 0, 1, 0};
 //int dy[] = {0, 1, 0, -1};
@@ -49,83 +50,93 @@ using namespace std;
 //int dy[]={2,-2,1,-1,2,-2,1,-1};/*knight move*/
 
 //'A'=65,'Z'=90 'a'=97 'z'=122 '0'=48
-//vi adj[MAX];
 int node,edge;
-ll dis[MAX];
+vi adj[MAX];
+bool visited[MAX];
+int track,ck,c=1;
+int sT[MAX];
+bool f=false;
 
 
-void BellmanFord(int graph[][3],int src)
+void dfs(int src)
 {
-
-    for (int i = 1; i <= node; i++)
-        dis[i] = INT_MAX;
-    dis[src] = 0;
-    for (int i = 1; i <= node - 1; i++)
+    visited[src]=true;
+    if(sz(adj[src])!=2) return;
+    sT[src]=c++;
+    for(int i=0; i<sz(adj[src]); i++)
     {
-        for (int j = 0; j < edge; j++)
+        int x=adj[src][i];
+        int tt=0;
+        //    cout<<" x  =  "<<x<<"   track  "<<track<<endl;
+        //   cout<< "st src "<<sT[src]<<"     st child  "<<sT[x]<<endl;
+//cout<<" diff "<<sT[]
+        if(!visited[x])
+            dfs(x);
+        else if(visited[x]&&sT[src]-sT[x]>=2&&x==track&&sz(adj[x])==2&&sz(adj[src])==2)
         {
-            if (dis[graph[j][0]]!=INT_MAX&&dis[graph[j][0]] + graph[j][2] <dis[graph[j][1]])
-                dis[graph[j][1]] =dis[graph[j][0]] + graph[j][2];
+       //     tt=1;
+            ck++;
+
+            //      cout<<src<<"      "<<x<<"      track "<<track<<endl;
         }
-    }
 
-    for (int i = 0; i < edge; i++)
-    {
-        int x = graph[i][0];
-        int y = graph[i][1];
-        int weight = graph[i][2];
-        if (dis[x]!=INT_MAX&&dis[x] + weight < dis[y])
-           dis[y]=INT_MIN;
-    }
 
+    }
+    if(src!=track)
+        c--;
+
+    //cout<<"exit src "<<src<<endl;
 }
 int main()
 {
-    int kk=1;
-    int n,e;
-    while(sf(n)==1)
+    sff(node,edge);
+    for(int i=0; i<edge; i++)
     {
-        node=n;
-        int dist[n+1];
-        for(int i=1; i<=n; i++)
-            sf(dist[i]);
-
-        sf(e);
-        edge=e;
-        int graph[e][3];
-        for(int i=0; i<e; i++)
-        {
-
-            int u,v;
-            sff(u,v);
-            graph[i][0]=u;
-            graph[i][1]=v;
-            graph[i][2]=(dist[v]-dist[u])*(dist[v]-dist[u])*(dist[v]-dist[u]);
-
-        }
-        BellmanFord(graph,1);
-
-     //   for(int i=1;i<=n;i++)
-     //  cout<<i<<" --  "<<dis[i]<<endl;
-
-        pf("Set #%d\n",kk++);
-        int q;
-        sf(q);
-        while(q--)
-        {
-            int x;
-            sf(x);
-          if(dis[x]<3||dis[x]==INT_MAX)pf("?\n");
-
-           else pf("%lld\n",dis[x]);
-        }
-
+        int x,y;
+        sff(x,y);
+        adj[x].pb(y);
+        adj[y].pb(x);
+        //cc[{x,y}]=true;
+        // cc[{y,x}]=true;
     }
+    for(int i=1; i<=node; i++)
+        if(!visited[i])
+        {
+            f=false;
+            c=1;
+            track=i;
+            dfs(i);
+        }
+    pf1(ck);
 
 
     return 0;
 }
 /*
 Ref:
-*/
+5 4
+1 2
+3 4
+5 4
+3 5
 
+17 15
+1 8
+1 12
+5 11
+11 9
+9 15
+15 5
+4 13
+3 13
+4 3
+10 16
+7 10
+16 7
+14 3
+14 4
+17 6
+
+
+
+*/

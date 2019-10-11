@@ -58,7 +58,7 @@ int tmp,tmp1,tmp2,tmp3;
 bool f1,f2,f3;
 void dfs(int s)
 {
- // cout<<"Source : "<<s<<endl;
+// cout<<"Source : "<<s<<endl;
     sT[s]=ck;
     c++,ck++;
     visited[s]=true;
@@ -83,19 +83,21 @@ void dfs(int s)
         }
         else if(visited[child])
         {
-         //   cout<<"child "<<child <<"dist "<<dist[child]<<endl;
-           // dist[s]+=dist[child];
-           track=dist[child];f3=true;
+            //   cout<<"child "<<child <<"dist "<<dist[child]<<endl;
+            // dist[s]+=dist[child];
+            track=dist[child];
+            f3=true;
 //cout<<"dist final "<<dist[child]<<endl;
         }
     }
     fT[s]=ck;
     ck++;
-  //  cout<<fT[s]<<"---"<<sT[s]<<endl;
- //   cout<<"before "<<dist[s]<<endl;
+    //  cout<<fT[s]<<"---"<<sT[s]<<endl;
+//   cout<<"before "<<dist[s]<<endl;
     dist[s]+=(fT[s]-sT[s]+1)/2;
-    if(f3)dist[s]+=track;
-  //  cout<<"after "<<dist[s]<<endl;
+    if(f3)
+        dist[s]+=track;
+    //  cout<<"after "<<dist[s]<<endl;
     if(f1)
         dist[s]=c;
     if(f2)
@@ -133,7 +135,8 @@ int main()
         int vis=-1,idx=INT_MAX;
         for(int i=1; i<=edges; i++)
         {
-            ck=1,c=0;f1=false,f2=false,f3=false;
+            ck=1,c=0;
+            f1=false,f2=false,f3=false;
             if(visited[i]==false)
             {
                 track=i;
@@ -151,10 +154,10 @@ int main()
 
 
 
-      pf("Case %d: %d\n",k++,idx);
+        pf("Case %d: %d\n",k++,idx);
         for(int i=1; i<=edges; i++)
-          //cout<<i<<"----"<<dist[i]<<endl,adj[i].clear();
-      adj[i].clear();
+            //cout<<i<<"----"<<dist[i]<<endl,adj[i].clear();
+            adj[i].clear();
     }
 
 
